@@ -1,0 +1,15 @@
+[user]
+	email = christopher.lang.256@gmail.com
+	name = Christopher Lang
+[credential]
+	helper = store
+[init]
+	defaultBranch = main
+[core]
+	editor = nvim
+[alias]
+	s = status
+	com = commit
+	check = checkout
+	b = branch
+	a = add

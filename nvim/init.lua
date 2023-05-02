@@ -7,7 +7,8 @@
 
 -- colorscheme
 -- https://github.com/EvitanRelta/vim-colorschemes
-vim.cmd("colorscheme onedark")
+vim.cmd("colorscheme wal")
+vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
 
 -- dissable mouse
 vim.cmd("set mouse=")

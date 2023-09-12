@@ -5,9 +5,11 @@
 -- |_| |_|\_/ |_|_| |_| |_|_|  \___|
 --
 
+vim.cmd("set binary")
+
 -- colorscheme
 -- https://github.com/EvitanRelta/vim-colorschemes
-vim.cmd("colorscheme wal")
+vim.cmd("colorscheme gruvbox")
 vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
 
 -- dissable mouse
@@ -47,6 +49,9 @@ vim.cmd("set colorcolumn=80");
 
 -- indent size
 -- use `set shiftwidth = 4` to change to 4 spaces
+function _G.tab_indent()
+  vim.cmd("set noet ci pi sts=0 sw=4 ts=4")
+end
 vim.opt.tabstop = 8
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 0
@@ -67,8 +72,8 @@ vim.cmd("set formatoptions-=ro")
 -- line wrap
 vim.opt.wrap = false
 
--- disable search wrap
-vim.opt.wrapscan = false
+-- uncomment to disable search wrap
+-- vim.opt.wrapscan = false
 
 -- special characters
 vim.cmd("set list")
@@ -76,7 +81,6 @@ vim.cmd("set listchars=trail:.,tab:-->")
 
 vim.opt.swapfile = false
 vim.opt.backup = false
--- vim.opt.clipboard += "unnamedplus"
 -- vim.opt.scrolloff = 8
 
 -- paste to overwrite selection and keep paste buffer content

@@ -1,6 +1,11 @@
 [user]
 	email = christopher.lang.256@gmail.com
 	name = Christopher Lang
+[sendemail]
+	smtpServer = smtp.gmail.com
+	smtpServerPort = 587
+	smtpEncryption = tls
+	smtpUser = christopher.lang.256@gmail.com
 [credential]
 	helper = store
 [init]

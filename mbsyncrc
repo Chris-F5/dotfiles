@@ -1,0 +1,64 @@
+IMAPAccount gmail
+Host imap.gmail.com
+User christopher.lang.256@gmail.com
+PassCmd "cat ~/.gmail_pass"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Path ~/mail/gmail/
+Inbox ~/mail/gmail/inbox
+SubFolders Verbatim
+
+Channel gmail-inbox
+Far :gmail-remote:"INBOX"
+Near :gmail-local:"inbox"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-all
+Far :gmail-remote:"[Gmail]/All Mail"
+Near :gmail-local:"archive"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-spam
+Far :gmail-remote:"[Gmail]/Spam"
+Near :gmail-local:"spam"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-bin
+Far :gmail-remote:"[Gmail]/Bin"
+Near :gmail-local:"bin"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-draft
+Far :gmail-remote:"[Gmail]/Drafts"
+Near :gmail-local:"draft"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-sent
+Far :gmail-remote:"[Gmail]/Sent Mail"
+Near :gmail-local:"sent"
+Create Both
+Expunge Both
+SyncState *
+
+Group gmail
+Channel gmail-inbox
+Channel gmail-all
+Channel gmail-spam
+Channel gmail-bin
+Channel gmail-draft
+Channel gmail-sent

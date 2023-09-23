@@ -1,0 +1,4 @@
+[language.java]
+filetypes = ["java"]
+roots = [".git/"]
+command = "/home/chris/r/dotfiles/lsp/jdt-ls.sh"

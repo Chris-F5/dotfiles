@@ -11,7 +11,7 @@
 [init]
 	defaultBranch = main
 [core]
-	editor = vi
+	editor = kak
 [alias]
 	s = status
 	com = commit

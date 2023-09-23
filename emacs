@@ -53,7 +53,12 @@
 	  ("/gmail/draft",   ?d)
 	  ("/gmail/sent",    ?s)
 	  ))
+
+  (setq mu4e-sent-messages-behavior 'delete)
   )
+
+(setq auto-save-file-name-transforms
+  `((".*" "~/.emacs.d/autosave/" t)))
 
 ;; SMTP
 ;; ----
@@ -70,6 +75,14 @@
 ; Use windows key for meta.
 (setq x-super-keysym 'meta)
 
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode) 
+
+(add-to-list 'load-path "~/.emacs.d/elisp/")
+(require 'openbsd-knf-style)
+(c-add-style "OpenBSD" openbsd-knf-style)
+(setq c-default-style '((c-mode . "OpenBSD")))
+
 ;; Custom (auto generated)
 ;; -----------------------
 
@@ -78,7 +91,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(evil-collection evil)))
+ '(package-selected-packages '(fill-column-indicator evil-collection evil)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,0 +1,11 @@
+colorscheme one-dark
+hook global RegisterModified '"' %{ nop %sh{
+  printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
+}}
+map global normal P '!xsel --output --clipboard<ret>'
+map global normal p '<a-!>xsel --output --clipboard<ret>'
+map global normal R '|xsel --output --clipboard<ret>'
+
+eval %sh{kak-lsp --kakoune -s $kak_session -c ~/.config/kak-lsp/kak-lsp.toml}
+lsp-enable
+set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"

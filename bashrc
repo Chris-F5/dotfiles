@@ -18,3 +18,5 @@ alias grep='grep --color=auto'
 mc() {
   mkdir -p "$1" && cd "$1"
 }
+
+export JAVA_HOME=/usr/lib/jvm/openjdk17

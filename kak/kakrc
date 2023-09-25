@@ -1,3 +1,5 @@
+set-option -add global ui_options terminal_assistant=cat
+
 colorscheme one-dark
 hook global RegisterModified '"' %{ nop %sh{
   printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
@@ -9,3 +11,22 @@ map global normal R '|xsel --output --clipboard<ret>'
 eval %sh{kak-lsp --kakoune -s $kak_session -c ~/.config/kak-lsp/kak-lsp.toml}
 lsp-enable
 set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
+
+add-highlighter global/ show-matching
+# Make sure my colorschemes 'Whitespace' face ends in '+f'
+# See ':doc faces' for more info.
+add-highlighter global/ show-whitespaces
+add-highlighter global/ number-lines -relative
+add-highlighter global/ column 80 default,rgb:404040
+
+set global tabstop 4
+set global indentwidth 4
+
+hook global BufOpenFile .* editorconfig-load
+hook global BufNewFile .* editorconfig-load
+
+# USERMODE BINDINGS
+# -----------------
+
+map global user e ':lsp-find-error<ret>' -docstring 'find lsp error'
+map global user h ':lsp-hover<ret>' -docstring 'lsp hover'

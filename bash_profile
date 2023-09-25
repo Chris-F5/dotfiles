@@ -3,6 +3,5 @@
 # Get the aliases and functions
 [ -f $HOME/.bashrc ] && . $HOME/.bashrc
 
-figlet "bashprofile"
 cal
 calcurse -t -a

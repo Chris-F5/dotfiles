@@ -8,15 +8,17 @@
 [[ $- != *i* ]] && return
 
 PS1='[\u@\h \W]\$ '
-export EDITOR=vi
+export EDITOR=kak
 
 alias v=$EDITOR
 alias g=git
-alias sc=systemctl
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+alias t=tmux
 mc() {
   mkdir -p "$1" && cd "$1"
 }
 
 export JAVA_HOME=/usr/lib/jvm/openjdk17
+
+find ~/r/chris256.com/www/asciiart/ -type f | sort -R  | head -n1 | xargs cat

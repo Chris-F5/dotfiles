@@ -73,7 +73,7 @@
 ;; ----------------
 
 ; Use windows key for meta.
-(setq x-super-keysym 'meta)
+; (setq x-super-keysym 'meta)
 
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode) 

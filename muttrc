@@ -1,0 +1,19 @@
+bind index g first-entry
+bind index G last-entry
+set sleep_time = 0
+
+set realname = "Christopher Lang"
+set from = "christopher.lang.256@gmail.com"
+
+set folder = "~/mail/gmail"
+set spoolfile = "~/mail/gmail/inbox"
+set record = "~/mail/gmail/sent"
+set trash = "~/mail/gmail/bin"
+set postponed = "~/mail/gmail/draft"
+
+macro index gi "<change-folder>=inbox<enter>"
+macro index ga "<change-folder>=archive<enter>"
+macro index gp "<change-folder>=spam<enter>"
+macro index gb "<change-folder>=bin<enter>"
+macro index gd "<change-folder>=draft<enter>"
+macro index gs "<change-folder>=sent<enter>"

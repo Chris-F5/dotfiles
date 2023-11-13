@@ -7,3 +7,9 @@ command = "/home/chris/r/dotfiles/lsp/jdt-ls.sh"
 filetypes = ["c", "cpp"]
 roots = [".git/"]
 command = "clangd"
+
+# [language.ocaml]
+# extensions = ["ml"]
+# filetypes = ["ocaml"]
+# roots = [".git/"]
+# command = "ocamllsp"

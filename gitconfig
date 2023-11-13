@@ -12,6 +12,7 @@
 	defaultBranch = main
 [core]
 	editor = kak
+	pager = less
 [alias]
 	s = status
 	com = commit

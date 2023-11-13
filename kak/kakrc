@@ -28,5 +28,22 @@ hook global BufNewFile .* editorconfig-load
 # USERMODE BINDINGS
 # -----------------
 
-map global user e ':lsp-find-error<ret>' -docstring 'find lsp error'
+map global user e ':lsp-find-error --include-warnings<ret>' -docstring 'find lsp error'
 map global user h ':lsp-hover<ret>' -docstring 'lsp hover'
+map global user f 'x|par w79<ret>' -docstring 'fold lines to 79 characters'
+map global user q 'x|sed -E "s/^(> )?/> /"<ret>|par w79<ret>'
+map global user u 'xypHr-'
+map global user a '|unidecode<ret>'
+map global user c ':comment-line<ret>'
+map global user k '<a-a>w:man<ret>'
+map global user d ':db<ret>'
+
+# EXPERIMENTS
+# -----------
+
+declare-option range-specs hidden_lines
+define-command hide-line %{
+    execute-keys x
+    set-option window hidden_lines %val{timestamp} "%val{selection_desc}|"
+    try %{ add-highlighter window/ replace-ranges hidden_lines }
+}

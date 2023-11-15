@@ -1,9 +1,5 @@
 while true; do
-  song=$(mpc current)
-  if [ -n "$song" ]; then
-    song="$song | "
-  fi
-  xsetroot -name "$song$(date +"%Y %b %d %a %H:%M")"
+  xsetroot -name "$(battery_info) - $(date +"%Y %b %d %a %H:%M")"
   sleep 1
 done &
 syncthing serve --no-browser &

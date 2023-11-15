@@ -9,6 +9,6 @@ ln -s $dir/gitconfig ~/.gitconfig
 ln -s $dir/tmux.conf ~/.tmux.conf
 ln -s $dir/xinitrc ~/.xinitrc
 
-mkdir -p ~/.config/{kak,kak-lsp}
+mkdir -p ~/.config/kak ~/.config/kak-lsp
 ln -s $dir/kak/kakrc ~/.config/kak/kakrc
 ln -s $dir/kak-lsp/kak-lsp.toml ~/.config/kak-lsp/kak-lsp.toml

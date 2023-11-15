@@ -11,4 +11,5 @@ ln -s $dir/xinitrc ~/.xinitrc
 
 mkdir -p ~/.config/kak ~/.config/kak-lsp
 ln -s $dir/kak/kakrc ~/.config/kak/kakrc
+ln -s $dir/kak/colors/ ~/.config/kak/colors
 ln -s $dir/kak-lsp/kak-lsp.toml ~/.config/kak-lsp/kak-lsp.toml

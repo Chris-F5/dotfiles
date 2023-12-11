@@ -37,6 +37,11 @@ map global user a '|unidecode<ret>'
 map global user c ':comment-line<ret>'
 map global user k '<a-a>w:man<ret>'
 map global user d ':db<ret>'
+# map global user
+define-command -params 1 insert-image %{echo %sh{scrot -s -o $1}; execute-keys "o!IMAGE %arg{1}<esc>"}
+map global user i ':insert-image '
+# map global user i %{:prompt image_name %(execute-keys 'ihi<esc>')<ret>}
+
 
 # EXPERIMENTS
 # -----------

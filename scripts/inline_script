@@ -14,27 +14,27 @@ def run_shell(command):
     if result.returncode != 0:
         exit(1)
 
-def run(command, mode):
-    match mode:
-        case "python":
-            eval(command)
-        case "shell":
-            run_shell(command)
-
+def run(payload, mode):
+    result = subprocess.run(mode, input=payload, shell=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    sys.stderr.write(result.stderr)
+    sys.stdout.write(result.stdout)
+    if result.returncode != 0:
+        exit(1)
 mode = "verbatim"
-command = ""
+payload = ""
 
 for line in sys.stdin:
     if mode == "verbatim":
-        parts = line.strip().split(" ", 2)
+        parts = line.strip().split(" ", 1)
         if parts[0] == "!BEGIN":
             mode = parts[1]
         else:
             sys.stdout.write(line)
     else:
         if line.strip() == "!END":
-            run(command, mode)
+            run(payload, mode)
             mode = "verbatim"
-            command = ""
+            payload = ""
         else:
-            command += line
+            payload += line

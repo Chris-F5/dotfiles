@@ -2,11 +2,18 @@
 filetypes = ["java"]
 roots = [".git/"]
 command = "/home/chris/r/dotfiles/lsp/jdt-ls.sh"
+# https://github.com/eclipse-jdtls/eclipse.jdt.ls
 
 [language.c_cpp]
 filetypes = ["c", "cpp"]
 roots = [".git/"]
 command = "clangd"
+
+[language.python]
+filetypes = ["python"]
+roots = [".git"]
+command = "pylsp"
+offset_encoding = "utf-8"
 
 # [language.ocaml]
 # extensions = ["ml"]

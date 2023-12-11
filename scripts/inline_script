@@ -1,0 +1,40 @@
+#!/bin/python3
+
+import sys
+import subprocess
+
+shell = False
+command = ""
+
+def run_shell(command):
+    result = subprocess.run(command, shell=True, stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE, text=True)
+    sys.stderr.write(result.stderr)
+    sys.stdout.write(result.stdout)
+    if result.returncode != 0:
+        exit(1)
+
+def run(command, mode):
+    match mode:
+        case "python":
+            eval(command)
+        case "shell":
+            run_shell(command)
+
+mode = "verbatim"
+command = ""
+
+for line in sys.stdin:
+    if mode == "verbatim":
+        parts = line.strip().split(" ", 2)
+        if parts[0] == "!BEGIN":
+            mode = parts[1]
+        else:
+            sys.stdout.write(line)
+    else:
+        if line.strip() == "!END":
+            run(command, mode)
+            mode = "verbatim"
+            command = ""
+        else:
+            command += line

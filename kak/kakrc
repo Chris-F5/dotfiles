@@ -1,6 +1,6 @@
 set-option -add global ui_options terminal_assistant=cat
 
-colorscheme one-dark
+colorscheme solarized-dark
 hook global RegisterModified '"' %{ nop %sh{
   printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
 }}
@@ -13,11 +13,9 @@ lsp-enable
 set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
 
 add-highlighter global/ show-matching
-# Make sure my colorschemes 'Whitespace' face ends in '+f'
-# See ':doc faces' for more info.
 add-highlighter global/ show-whitespaces
 add-highlighter global/ number-lines -relative
-add-highlighter global/ column 80 default,rgb:404040
+add-highlighter global/ column 80 StatusLine
 
 set global tabstop 4
 set global indentwidth 4
@@ -30,25 +28,29 @@ hook global BufNewFile .* editorconfig-load
 
 map global user e ':lsp-find-error --include-warnings<ret>' -docstring 'find lsp error'
 map global user h ':lsp-hover<ret>' -docstring 'lsp hover'
+map global user m ':lsp-highlight-references<ret>' -docstring 'lsp highlight references'
+map global user k '<a-a>w:man<ret>' -docstring 'man page'
+map global user d ':db<ret>' -docstring 'delete buffer'
+map global user / ':comment-line<ret>' -docstring 'comment'
+map global user a '|unidecode<ret>' -docstring 'unidecode'
 map global user f 'x|par w79<ret>' -docstring 'fold lines to 79 characters'
-map global user q 'x|sed -E "s/^(> )?/> /"<ret>|par w79<ret>'
-map global user u 'xypHr-'
-map global user a '|unidecode<ret>'
-map global user c ':comment-line<ret>'
-map global user k '<a-a>w:man<ret>'
-map global user d ':db<ret>'
-# map global user
+map global user q 'x|sed -E "s/^(| )?/> /"<ret>|par w79<ret>' -docstring 'quote'
+map global user | 'Z<a-s>i|<space><esc>zx'
+map global user l %{x|awk '{printf("%02d| %s\n", ++x, $0)}'<ret>} -docstring 'line numbers'
+#map global user l %{xZ<a-s>i<c-r>#| <esc>hh<a-h><a-;>&<a-h>zx} -docstring 'line numbers'
+map global user u 'xypHr-' -docstring 'underline'
+map global user c 'x|center<ret>' -docstring 'center'
 define-command -params 1 insert-image %{echo %sh{scrot -s -o $1}; execute-keys "o!IMAGE %arg{1}<esc>"}
 map global user i ':insert-image '
-# map global user i %{:prompt image_name %(execute-keys 'ihi<esc>')<ret>}
+map global user p ':set buffer filetype plain<ret>'
 
+define-command tw %{
+    hook buffer BufWritePost '.*' %{
+        nop %sh{ { tw -o "${kak_buffile}.pdf" < $kak_buffile ; } >/dev/null 2>&1 & }
+    }
+    nop %sh{ tw -o "${kak_buffile}.pdf" < $kak_buffile ; { zathura "${kak_buffile}.pdf" ; } >/dev/null 2>&1 &}
+}
 
-# EXPERIMENTS
-# -----------
-
-declare-option range-specs hidden_lines
-define-command hide-line %{
-    execute-keys x
-    set-option window hidden_lines %val{timestamp} "%val{selection_desc}|"
-    try %{ add-highlighter window/ replace-ranges hidden_lines }
+define-command pyentr %{
+    tmux-terminal-horizontal "echo %val{buffile} | entr -c python3 %val{buffile}"
 }

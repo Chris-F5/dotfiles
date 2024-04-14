@@ -21,10 +21,21 @@ def run(payload, mode):
     sys.stdout.write(result.stdout)
     if result.returncode != 0:
         exit(1)
+
+if len(sys.argv) == 1:
+    FILE=sys.stdin
+elif len(sys.argv) == 2:
+    FILE=open(sys.argv[1], 'r')
+else:
+    sys.stderr.write("Too many arguments\n")
+    exit(1)
+
 mode = "verbatim"
 payload = ""
 
-for line in sys.stdin:
+for line in FILE:
+    if len(line) > 0 and line[0] == '#':
+        continue
     if mode == "verbatim":
         parts = line.strip().split(" ", 1)
         if parts[0] == "!BEGIN":

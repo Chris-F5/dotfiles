@@ -4,7 +4,7 @@ ECLIPSE_JDTLS_HOME=/home/chris/s/jdt-language-server
 ECLIPSE_WORKSPACE=/home/chris/.eclipse
 
 # Must be java 17 or above.
-java \
+/usr/lib/jvm/openjdk17/bin/java \
 	-Declipse.application=org.eclipse.jdt.ls.core.id1 \
 	-Dosgi.bundles.defaultStartLevel=4 \
 	-Declipse.product=org.eclipse.jdt.ls.core.product \

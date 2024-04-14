@@ -5,3 +5,4 @@
 
 cal
 calcurse -t -a
+. "$HOME/.cargo/env"

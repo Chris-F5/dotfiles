@@ -13,7 +13,7 @@ lsp-enable
 set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
 
 add-highlighter global/ show-matching
-add-highlighter global/ show-whitespaces
+add-highlighter global/ show-whitespaces -indent ⋅
 add-highlighter global/ number-lines -relative
 add-highlighter global/ column 80 StatusLine
 

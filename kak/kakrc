@@ -23,6 +23,8 @@ set global indentwidth 4
 hook global BufOpenFile .* editorconfig-load
 hook global BufNewFile .* editorconfig-load
 
+set global startup_info_version -1
+
 # USERMODE BINDINGS
 # -----------------
 

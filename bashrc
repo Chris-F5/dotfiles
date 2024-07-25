@@ -26,6 +26,8 @@ mc() {
 
 alias get_idf='. ~/s/esp-idf/export.sh'
 
+alias mmv='kak -e "execute-keys !ls<space>-Q<ret><a-s>Himv<space><esc>!cat<ret>a<space><esc>l<a-l><a-\;>&"'
+
 export JAVA_HOME=/usr/lib/jvm/openjdk17
 export PATH=/home/chris/.python_venv/bin:$PATH
 export PATH=$PATH:/opt/riscv/bin

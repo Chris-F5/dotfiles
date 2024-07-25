@@ -6,8 +6,9 @@ command = "/home/chris/r/dotfiles/lsp/jdt-ls.sh"
 
 [language.c_cpp]
 filetypes = ["c", "cpp"]
-roots = [".git/"]
-command = "clangd"
+roots = ["compile_commands.json", ".ccls", ".git"]
+command = "ccls"
+args = ["--init={\"request\":{\"timeout\":20000}}"]
 
 [language.python]
 filetypes = ["python"]

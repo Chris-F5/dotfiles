@@ -1,4 +1,8 @@
 #!/bin/sh
+
+echo "This is a crap script. Learn emacs instead."
+exit 1
+
 dir=.
 
 if [ -z "$EDITOR" ]; then

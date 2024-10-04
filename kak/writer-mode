@@ -1,0 +1,6 @@
+set-option buffer formatcmd 'fmt -w80'
+hook buffer InsertChar \w %{ execute-keys -with-hooks %sh{
+  if [ "$kak_cursor_display_column" -gt 80 ]; then
+    echo '<esc>bi<backspace><ret><esc><a-;>li'
+  fi
+}}

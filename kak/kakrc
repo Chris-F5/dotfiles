@@ -8,6 +8,9 @@ map global normal P '!xsel --output --clipboard<ret>'
 map global normal p '<a-!>xsel --output --clipboard<ret>'
 map global normal R '|xsel --output --clipboard<ret>'
 
+# gromacs config files are not c source.
+hook global BufCreate .*\.(itp|top) %{ set buffer filetype plain ; set buffer tabstop 8 }
+
 eval %sh{kak-lsp --kakoune -s $kak_session -c ~/.config/kak-lsp/kak-lsp.toml}
 lsp-enable
 set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
@@ -35,7 +38,8 @@ map global user k '<a-a>w:man<ret>' -docstring 'man page'
 map global user d ':db<ret>' -docstring 'delete buffer'
 map global user / ':comment-line<ret>' -docstring 'comment'
 map global user a '|unidecode<ret>' -docstring 'unidecode'
-map global user f 'x|par w79<ret>' -docstring 'fold lines to 79 characters'
+#map global user f 'x|par w79<ret>' -docstring 'fold lines to 79 characters'
+map global user f ':format-selections<ret>'
 map global user q 'x|sed -E "s/^(| )?/> /"<ret>|par w79<ret>' -docstring 'quote'
 map global user | 'Z<a-s>i|<space><esc>zx'
 map global user l %{x|awk '{printf("%02d| %s\n", ++x, $0)}'<ret>} -docstring 'line numbers'
@@ -55,4 +59,22 @@ define-command tw %{
 
 define-command pyentr %{
     tmux-terminal-horizontal "echo %val{buffile} | entr -c python3 %val{buffile}"
+}
+
+# How can I make it so that the new text is selected?
+define-command lorem-ipsum %{
+  execute-keys "i%{
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu convallis
+neque. Phasellus varius efficitur lacus ut sodales. Aenean pellentesque ut dui
+ut dapibus. Phasellus eros nisl, accumsan nec malesuada at, luctus aliquet
+diam. Mauris ac velit quis felis pellentesque placerat. Vivamus condimentum
+eget massa eget tempus. Duis luctus finibus tellus, quis lacinia metus
+vestibulum a. Donec viverra ullamcorper dui in cursus. Donec sapien est,
+aliquam vel velit nec, ultricies gravida ante. Etiam bibendum dui rhoncus,
+pharetra augue id, venenatis lectus. Vestibulum pretium finibus nisi, quis
+molestie est accumsan a. Sed id purus id ipsum consequat volutpat eu at
+mi. Sed euismod tincidunt eros. Donec ac turpis eu eros condimentum laoreet
+non ut neque. Quisque vel congue enim, id iaculis lectus. Quisque pretium,
+metus id egestas auctor, ex elit sodales elit, a luctus turpis orci nec velit.
+}<esc>"
 }

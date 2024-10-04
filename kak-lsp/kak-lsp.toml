@@ -13,7 +13,8 @@ args = ["--init={\"request\":{\"timeout\":20000}}"]
 [language.python]
 filetypes = ["python"]
 roots = [".git"]
-command = "pylsp"
+command = "python3"
+args = ["-m", "pylsp"]
 offset_encoding = "utf-8"
 
 # [language.ocaml]

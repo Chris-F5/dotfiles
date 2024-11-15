@@ -1,6 +1,9 @@
 set-option -add global ui_options terminal_assistant=cat
 
-colorscheme solarized-dark
+#colorscheme solarized-dark
+#colorscheme solarized-light
+colorscheme one-light
+
 hook global RegisterModified '"' %{ nop %sh{
   printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
 }}

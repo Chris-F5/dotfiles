@@ -40,6 +40,8 @@ for line in FILE:
         parts = line.strip().split(" ", 1)
         if parts[0] == "!BEGIN":
             mode = parts[1]
+        elif parts[0] == "!EXEC":
+            run_shell(parts[1])
         else:
             sys.stdout.write(line)
     else:

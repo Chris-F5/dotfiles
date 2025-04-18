@@ -1,27 +1,21 @@
 set-option -add global ui_options terminal_assistant=cat
 
-#colorscheme solarized-dark
-#colorscheme solarized-light
-colorscheme one-light
+colorscheme solarized-light
+#colorscheme one-light
 
-hook global RegisterModified '"' %{ nop %sh{
-  printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
-}}
-map global normal P '!xsel --output --clipboard<ret>'
-map global normal p '<a-!>xsel --output --clipboard<ret>'
-map global normal R '|xsel --output --clipboard<ret>'
 
-# gromacs config files are not c source.
-hook global BufCreate .*\.(itp|top) %{ set buffer filetype plain ; set buffer tabstop 8 }
 
-eval %sh{kak-lsp --kakoune -s $kak_session -c ~/.config/kak-lsp/kak-lsp.toml}
+eval %sh{kak-lsp}
 lsp-enable
-set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
+
+add-highlighter global/ number-lines -relative
+add-highlighter global/ number-lines
 
 add-highlighter global/ show-matching
-add-highlighter global/ show-whitespaces -indent ⋅
-add-highlighter global/ number-lines -relative
+#add-highlighter global/ show-whitespaces -indent ⋅
+add-highlighter global/ show-whitespaces -indent :
 add-highlighter global/ column 80 StatusLine
+
 
 set global tabstop 4
 set global indentwidth 4
@@ -29,29 +23,38 @@ set global indentwidth 4
 hook global BufOpenFile .* editorconfig-load
 hook global BufNewFile .* editorconfig-load
 
+hook global RegisterModified '"' %{ nop %sh{
+  printf %s "$kak_reg_dquote" | xsel --input --clipboard
+}}
+
 set global startup_info_version -1
 
 # USERMODE BINDINGS
 # -----------------
 
+# Changes
+map global user \" '<a-i><dquote>c' -docstring ''
+map global user \' '<a-i><quote>c'
+map global user / ':comment-line<ret>' -docstring 'comment'
+map global user a '|unidecode<ret>' -docstring 'unidecode'
+map global user f ':format-selections<ret>'
+
+# LSP
 map global user e ':lsp-find-error --include-warnings<ret>' -docstring 'find lsp error'
 map global user h ':lsp-hover<ret>' -docstring 'lsp hover'
 map global user m ':lsp-highlight-references<ret>' -docstring 'lsp highlight references'
+
+# Navigation
 map global user k '<a-a>w:man<ret>' -docstring 'man page'
 map global user d ':db<ret>' -docstring 'delete buffer'
-map global user / ':comment-line<ret>' -docstring 'comment'
-map global user a '|unidecode<ret>' -docstring 'unidecode'
-#map global user f 'x|par w79<ret>' -docstring 'fold lines to 79 characters'
-map global user f ':format-selections<ret>'
+
+# Text
+map global user w ':set buffer filetype text<ret>'
 map global user q 'x|sed -E "s/^(| )?/> /"<ret>|par w79<ret>' -docstring 'quote'
 map global user | 'Z<a-s>i|<space><esc>zx'
-map global user l %{x|awk '{printf("%02d| %s\n", ++x, $0)}'<ret>} -docstring 'line numbers'
-#map global user l %{xZ<a-s>i<c-r>#| <esc>hh<a-h><a-;>&<a-h>zx} -docstring 'line numbers'
 map global user u 'xypHr-' -docstring 'underline'
 map global user c 'x|center<ret>' -docstring 'center'
-define-command -params 1 insert-image %{echo %sh{scrot -s -o $1}; execute-keys "o!IMAGE %arg{1}<esc>"}
-map global user i ':insert-image '
-map global user p ':set buffer filetype plain<ret>'
+map global user l %{x|awk '{printf("%02d| %s\n", ++x, $0)}'<ret>} -docstring 'line numbers'
 
 define-command tw %{
     hook buffer BufWritePost '.*' %{
@@ -80,4 +83,44 @@ mi. Sed euismod tincidunt eros. Donec ac turpis eu eros condimentum laoreet
 non ut neque. Quisque vel congue enim, id iaculis lectus. Quisque pretium,
 metus id egestas auctor, ex elit sodales elit, a luctus turpis orci nec velit.
 }<esc>"
+}
+
+
+# REPLACE MODE
+# ------------
+
+# This doesent handle backspace in replace mode.
+map global user r :replace<ret>
+define-command replace %{
+    on-key %{
+        evaluate-commands %sh{
+            if [ "$kak_key" != "<esc>" ]; then
+                echo "execute-keys r${kak_key}l"
+                echo "evaluate-commands replace"
+            fi
+        }
+    }
+}
+
+
+# FILETYPES
+# ---------
+
+hook global BufCreate .*\.(itp|top|gro)$ %{
+    set-option buffer filetype gromacs
+}
+hook global WinSetOption filetype=gromacs %{
+    set-option buffer tabstop 8
+}
+
+hook global WinSetOption filetype=text %{
+    # TODO: make fmt work even when all lines end in fullstop.
+    set-option buffer formatcmd 'fmt -w80'
+    define-command -params 1 insert-image %{echo %sh{scrot -s -o $1}; execute-keys "o!IMAGE %arg{1}<esc>"}
+    map buffer user i ':insert-image '
+    hook buffer InsertChar \w %{ execute-keys -with-hooks %sh{
+      if [ "$kak_cursor_display_column" -gt 80 ]; then
+        echo '<esc>bi<backspace><ret><esc><a-;>li'
+      fi
+    }}
 }

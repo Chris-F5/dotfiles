@@ -17,6 +17,10 @@ command = "python3"
 args = ["-m", "pylsp"]
 offset_encoding = "utf-8"
 
+[language.go]
+filetypes = ["go"]
+command = "gopls"
+
 # [language.ocaml]
 # extensions = ["ml"]
 # filetypes = ["ocaml"]

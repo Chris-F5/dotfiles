@@ -16,10 +16,6 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias t=tmux
 alias tsm=transmission-remote
-alias python3=/home/chris/.python_venv/bin/python3
-alias python=/home/chris/.python_venv/bin/python3
-alias pip3=/home/chris/.python_venv/bin/pip3
-alias pip=/home/chris/.python_venv/bin/pip3
 mc() {
   mkdir -p "$1" && cd "$1"
 }
@@ -29,10 +25,14 @@ alias get_idf='. ~/s/esp-idf/export.sh'
 alias mmv='kak -e "execute-keys !ls<space>-Q<ret><a-s>Himv<space><esc>!cat<ret>a<space><esc>l<a-l><a-\;>&"'
 
 export JAVA_HOME=/usr/lib/jvm/openjdk17
-export PATH=/home/chris/.python_venv/bin:$PATH
 export PATH=$PATH:/opt/riscv/bin
 export PATH=$PATH:/home/chris/s/flutter/bin
+
+export RESTIC_REPOSITORY="s3:s3.eu-central-1.amazonaws.com/inspiron-home-bec72f62f4eb4564b273d9f8cfa2f97e"
+export RESTIC_PASSWORD_FILE="/home/chris/.restic_password"
 
 cat ~/asciiart/cat1 | awk '{ print "\t" $0 }'
 
 date +"%Y %b %d %a %H:%M"
+
+#source ~/miniconda3/etc/profile.d/conda.sh

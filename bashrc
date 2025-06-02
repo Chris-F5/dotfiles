@@ -16,6 +16,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias t=tmux
 alias tsm=transmission-remote
+alias z=zathura
 mc() {
   mkdir -p "$1" && cd "$1"
 }

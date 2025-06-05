@@ -1,4 +1,4 @@
-set-option -add global ui_options terminal_assistant=cat
+# set-option -add global ui_options terminal_assistant=cat
 
 colorscheme solarized-light
 #colorscheme one-light
@@ -35,9 +35,11 @@ set global startup_info_version -1
 # Changes
 map global user \" '<a-i><dquote>c' -docstring ''
 map global user \' '<a-i><quote>c'
-map global user / ':comment-line<ret>' -docstring 'comment'
+map global user '#' ':comment-line<ret>' -docstring 'comment'
+map global user / '/(?i)' -docstring 'ignore search'
 map global user a '|unidecode<ret>' -docstring 'unidecode'
 map global user f ':format-selections<ret>'
+map global user \" '<a-:>L<a-S>i'
 
 # LSP
 map global user e ':lsp-find-error --include-warnings<ret>' -docstring 'find lsp error'
